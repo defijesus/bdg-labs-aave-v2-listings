@@ -66,18 +66,17 @@ contract OneInchListingPayload is IProposalGenericExecutor {
     address public immutable ATOKEN_IMPL;
     address public immutable VARIABLE_DEBT_IMPL;
     address public immutable STABLE_DEBT_IMPL;
-    address public immutable INTEREST_RATE_STRATEGY;
+    address public constant INTEREST_RATE_STRATEGY = 0xb2eD1eCE1c13455Ce9299d35D3B00358529f3Dc8;
 
     uint256 public constant RESERVE_FACTOR = 2000;
     uint256 public constant LTV = 4000;
     uint256 public constant LIQUIDATION_THRESHOLD = 5000;
     uint256 public constant LIQUIDATION_BONUS = 10850;
 
-    constructor (address atoken, address vardebt, address stadebt, address intRateStrat) public {
+    constructor (address atoken, address vardebt, address stadebt) public {
         ATOKEN_IMPL = atoken;
         VARIABLE_DEBT_IMPL = vardebt;
         STABLE_DEBT_IMPL = stadebt;
-        INTEREST_RATE_STRATEGY = intRateStrat;
     }
 
     function execute() external override {
@@ -105,7 +104,7 @@ contract OneInchListingPayload is IProposalGenericExecutor {
             INTEREST_RATE_STRATEGY
         );
 
-        lendingPoolConfigurator.enableBorrowingOnReserve(ONEINCH, true);
+        lendingPoolConfigurator.enableBorrowingOnReserve(ONEINCH, false);
         lendingPoolConfigurator.setReserveFactor(ONEINCH, RESERVE_FACTOR);
         lendingPoolConfigurator.configureReserveAsCollateral(
             ONEINCH,

@@ -55,20 +55,6 @@ contract Validation1InchListing is Test {
     string internal constant aTokenArtifact = "AToken.sol:AToken";
     string internal constant stableDebtArtifact = "stableDebt.sol:StableDebtToken";
     string internal constant variableDebtArtifact = "varDebt.sol:VariableDebtToken";
-    string internal constant interestRateStrategyArtifact = "interestRateStrat.sol:DefaultReserveInterestRateStrategy";
-
-
-    uint256 internal constant OPTIMAL_UTILIZATION_RATE = 450000000000000000000000000;
-
-    uint256 internal constant BASE_VARIABLE_BORROW_RATE = 0;
-
-    uint256 internal constant VARIABLE_RATE_SLOPE_1 = 70000000000000000000000000;
-
-    uint256 internal constant VARIABLE_RATE_SLOPE_2 = 3000000000000000000000000000;
-
-    uint256 internal constant STABLE_RATE_SLOPE_1 = 100000000000000000000000000;
-
-    uint256 internal constant STABLE_RATE_SLOPE_2 = 3000000000000000000000000000;
 
     function setUp() public {}
 
@@ -100,22 +86,8 @@ contract Validation1InchListing is Test {
             INCENTIVES_CONTROLLER
         ));
 
-        address intRateStrat = deployCode(interestRateStrategyArtifact, abi.encode(
-            LENDING_POOL_ADDRESSES_PROVIDER,
-            OPTIMAL_UTILIZATION_RATE,
-            BASE_VARIABLE_BORROW_RATE,
-            VARIABLE_RATE_SLOPE_1,
-            VARIABLE_RATE_SLOPE_2,
-            STABLE_RATE_SLOPE_1,
-            STABLE_RATE_SLOPE_2
-        ));
-
-        console.log("atoken ", aToken);
-        console.log("stable ", stableDebt);
-        console.log("var ", varDebt);
-        console.log("intratestrat ", intRateStrat);
         /// deploy payload
-        OneInchListingPayload one = new OneInchListingPayload(aToken, varDebt, stableDebt, intRateStrat);
+        OneInchListingPayload one = new OneInchListingPayload(aToken, varDebt, stableDebt);
         address payload = address(one);
         _testProposal(payload);
     }
@@ -160,16 +132,16 @@ contract Validation1InchListing is Test {
             allConfigsAfter
         );
 
-        ReserveConfig memory expectedEnsConfig = ReserveConfig({
+        ReserveConfig memory expectedConfig = ReserveConfig({
             symbol: "1INCH",
             underlying: ONEINCH,
             aToken: address(0), // Mock, as they don't get validated, because of the "dynamic" deployment on proposal execution
             variableDebtToken: address(0), // Mock, as they don't get validated, because of the "dynamic" deployment on proposal execution
             stableDebtToken: address(0), // Mock, as they don't get validated, because of the "dynamic" deployment on proposal execution
             decimals: 18,
-            ltv: 5500,
-            liquidationThreshold: 6500,
-            liquidationBonus: 11000,
+            ltv: 4000,
+            liquidationThreshold: 5000,
+            liquidationBonus: 10850,
             reserveFactor: 2000,
             usageAsCollateralEnabled: true,
             borrowingEnabled: true,
@@ -180,7 +152,7 @@ contract Validation1InchListing is Test {
         });
 
         AaveV2Helpers._validateReserveConfig(
-            expectedEnsConfig,
+            expectedConfig,
             allConfigsAfter
         );
 
@@ -191,8 +163,8 @@ contract Validation1InchListing is Test {
                 excessUtilization: 55 * (AaveV2Helpers.RAY / 100),
                 optimalUtilization: 45 * (AaveV2Helpers.RAY / 100),
                 baseVariableBorrowRate: 0,
-                stableRateSlope1: 100000000000000000000000000,
-                stableRateSlope2: 3000000000000000000000000000,
+                stableRateSlope1: 0,
+                stableRateSlope2: 0,
                 variableRateSlope1: 7 * (AaveV2Helpers.RAY / 100),
                 variableRateSlope2: 300 * (AaveV2Helpers.RAY / 100)
             }),
