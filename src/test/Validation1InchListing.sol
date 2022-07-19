@@ -51,11 +51,6 @@ contract Validation1InchListing is Test {
     // can't be constant for some reason
     string internal MARKET_NAME = "AaveV2Ethereum";
 
-    // artifacts
-    string internal constant aTokenArtifact = "AToken.sol:AToken";
-    string internal constant stableDebtArtifact = "stableDebt.sol:StableDebtToken";
-    string internal constant variableDebtArtifact = "varDebt.sol:VariableDebtToken";
-
     function setUp() public {}
 
     /// @dev Uses an already deployed payload on the target network

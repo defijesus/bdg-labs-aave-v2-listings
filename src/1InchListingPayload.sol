@@ -73,8 +73,6 @@ contract OneInchListingPayload is IProposalGenericExecutor {
     uint256 public constant LIQUIDATION_THRESHOLD = 5000;
     uint256 public constant LIQUIDATION_BONUS = 10850;
 
-    constructor() {}
-
     function execute() external override {
         IPriceOracle PRICE_ORACLE = IPriceOracle(
             LENDING_POOL_ADDRESSES_PROVIDER.getPriceOracle()
