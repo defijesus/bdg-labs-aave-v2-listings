@@ -1,17 +1,16 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.11;
 
-import "forge-std/Test.sol";
 import "forge-std/Script.sol";
 import "src/1InchListingPayload.sol";
 
 
-contract OneInchDeployScript is Script, Test {
+contract OneInchDeployScript is Script {
 
     function run() external {
         vm.startBroadcast();
 
-        OneInchListingPayload nft = new OneInchListingPayload();
+        OneInchListingPayload one = new OneInchListingPayload();
 
         vm.stopBroadcast();
     }
