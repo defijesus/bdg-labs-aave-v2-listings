@@ -14,6 +14,12 @@ snapshot :; forge snapshot
 
 # utils
 download :; ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY} cast etherscan-source -d src/etherscan/${address} ${address} 
+rinkeby-download :; ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY} cast etherscan-source -c rinkeby -d src/etherscan/${address} ${address} 
+
 
 # deploy
-deploy1INCH :;  forge script scripts/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${RINKEBY_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
+rinkeby-predeploy1INCH :; forge script script/1InchListingPreload.s.sol:OneInchDeployScript --rpc-url=${RINKEBY_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
+rinkeby-deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${RINKEBY_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
+
+predeploy1INCH :; forge script script/1InchListingPreload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
+deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify

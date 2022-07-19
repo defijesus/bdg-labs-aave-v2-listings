@@ -3,7 +3,6 @@ pragma solidity ^0.8.11;
 
 import "forge-std/Test.sol";
 import "forge-std/Script.sol";
-import "src/1InchListingPayload.sol";
 
 
 contract OneInchDeployScript is Script, Test {
@@ -66,8 +65,6 @@ contract OneInchDeployScript is Script, Test {
             VARIABLE_DEBT_TOKEN_SYMBOL,
             INCENTIVES_CONTROLLER
         ));
-
-        OneInchListingPayload nft = new OneInchListingPayload(aToken, varDebt, stableDebt);
 
         vm.stopBroadcast();
     }
