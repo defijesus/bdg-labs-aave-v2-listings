@@ -11,7 +11,7 @@ contract OneInchDeployScript is Script, Test {
     function run() external {
         vm.startBroadcast();
 
-        /// OneInchListingPayload nft = new OneInchListingPayload();
+        OneInchListingPayload nft = new OneInchListingPayload();
 
         vm.stopBroadcast();
     }

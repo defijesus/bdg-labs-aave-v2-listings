@@ -23,3 +23,5 @@ rinkeby-deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDep
 
 predeploy1INCH :; forge script script/1InchListingPreload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --ledger --sender 0xde30040413b26d7aa2b6fc4761d80eb35dcf97ad --broadcast --verify --via-ir
 deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --ledger --sender 0xde30040413b26d7aa2b6fc4761d80eb35dcf97ad --broadcast --verify --via-ir
+
+submit1INCH :;  forge script script/1InchListingSubmission.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify --via-ir
