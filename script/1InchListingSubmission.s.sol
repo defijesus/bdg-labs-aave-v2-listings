@@ -6,14 +6,15 @@ import "forge-std/Script.sol";
 
 import {AaveGovHelpers, IAaveGov} from "src/test/utils/AaveGovHelpers.sol";
 
-
 contract OneInchDeployScript is Script, Test {
 
     address internal constant DELEGATE_ADDRESS = 0xd2362DbB5Aa708Bc454Ce5C3F11050C016764fA6;
-    address internal constant PAYLOAD = address(0);
+    address internal constant PAYLOAD = 0xD417d07c20e31F6e129fa68182054B641FbEC8Bd;
 
-    bytes32 internal constant IPFS_HASH = bytes32(0);
+    bytes32 internal constant IPFS_HASH = bytes32(0xec9d2289ab7db9bfbf2b0f2dd41ccdc0a4003e9e0d09e40dee09095145c63fb5);
 
+    IAaveGov internal constant GOV =
+        IAaveGov(0xEC568fffba86c094cf06b22134B23074DFE2252c);
 
     function run() external {
         vm.startBroadcast();
@@ -29,18 +30,14 @@ contract OneInchDeployScript is Script, Test {
         bool[] memory withDelegatecalls = new bool[](1);
         withDelegatecalls[0] = true;
 
-        uint256 proposalId = AaveGovHelpers._createProposal(
-            vm,
-            DELEGATE_ADDRESS,
-            IAaveGov.SPropCreateParams({
-                executor: AaveGovHelpers.SHORT_EXECUTOR,
-                targets: targets,
-                values: values,
-                signatures: signatures,
-                calldatas: calldatas,
-                withDelegatecalls: withDelegatecalls,
-                ipfsHash: IPFS_HASH
-            })
+        uint256 proposalId = GOV.create(
+            AaveGovHelpers.SHORT_EXECUTOR,
+            targets,
+            values,
+            signatures,
+            calldatas,
+            withDelegatecalls,
+            IPFS_HASH
         );
 
         vm.stopBroadcast();
