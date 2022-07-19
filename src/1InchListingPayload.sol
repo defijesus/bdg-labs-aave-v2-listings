@@ -63,9 +63,9 @@ contract OneInchListingPayload is IProposalGenericExecutor {
     address public constant FEED_ONEINCH_ETH =
         0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8;
 
-    address public immutable ATOKEN_IMPL;
-    address public immutable VARIABLE_DEBT_IMPL;
-    address public immutable STABLE_DEBT_IMPL;
+    address public constant ATOKEN_IMPL = 0x130FBED7dBA2b370f0F93b0Caea2cfD9b811D66D;
+    address public constant STABLE_DEBT_IMPL = 0x9C2114Bf70774C36E9b8d6c790c9C14FF0d6799E;
+    address public constant VARIABLE_DEBT_IMPL = 0x4d3707566Ee8a0ed6DE424a262050C7587da8152;
     address public constant INTEREST_RATE_STRATEGY = 0xb2eD1eCE1c13455Ce9299d35D3B00358529f3Dc8;
 
     uint256 public constant RESERVE_FACTOR = 2000;
@@ -73,11 +73,7 @@ contract OneInchListingPayload is IProposalGenericExecutor {
     uint256 public constant LIQUIDATION_THRESHOLD = 5000;
     uint256 public constant LIQUIDATION_BONUS = 10850;
 
-    constructor (address atoken, address vardebt, address stadebt) public {
-        ATOKEN_IMPL = atoken;
-        VARIABLE_DEBT_IMPL = vardebt;
-        STABLE_DEBT_IMPL = stadebt;
-    }
+    constructor() {}
 
     function execute() external override {
         IPriceOracle PRICE_ORACLE = IPriceOracle(

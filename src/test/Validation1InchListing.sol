@@ -60,34 +60,8 @@ contract Validation1InchListing is Test {
 
     /// @dev Uses an already deployed payload on the target network
     function testProposalPostPayload() public {
-        /// deploy atoken and such
-        address aToken = deployCode(aTokenArtifact, abi.encode(
-            POOL,
-            ONEINCH,
-            RESERVE_TREASURY_ADDRESS,
-            ATOKEN_NAME,
-            ATOKEN_SYMBOL,
-            INCENTIVES_CONTROLLER
-        ));
-
-        address stableDebt = deployCode(stableDebtArtifact, abi.encode(
-            POOL,
-            ONEINCH,
-            STABLE_DEBT_TOKEN_NAME,
-            STABLE_DEBT_TOKEN_SYMBOL,
-            INCENTIVES_CONTROLLER
-        ));
-
-        address varDebt = deployCode(variableDebtArtifact, abi.encode(
-            POOL,
-            ONEINCH,
-            VARIABLE_DEBT_TOKEN_NAME,
-            VARIABLE_DEBT_TOKEN_SYMBOL,
-            INCENTIVES_CONTROLLER
-        ));
-
         /// deploy payload
-        OneInchListingPayload one = new OneInchListingPayload(aToken, varDebt, stableDebt);
+        OneInchListingPayload one = new OneInchListingPayload();
         address payload = address(one);
         _testProposal(payload);
     }

@@ -21,5 +21,5 @@ rinkeby-download :; ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY} cast etherscan-source
 rinkeby-predeploy1INCH :; forge script script/1InchListingPreload.s.sol:OneInchDeployScript --rpc-url=${RINKEBY_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
 rinkeby-deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${RINKEBY_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
 
-predeploy1INCH :; forge script script/1InchListingPreload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
-deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --private-key ${PRIVATE_KEY} --broadcast --verify
+predeploy1INCH :; forge script script/1InchListingPreload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --ledger --sender 0xde30040413b26d7aa2b6fc4761d80eb35dcf97ad --broadcast --verify --via-ir
+deploy1INCH :;  forge script script/1InchListingPayload.s.sol:OneInchDeployScript --rpc-url=${ETH_RPC_URL} --ledger --sender 0xde30040413b26d7aa2b6fc4761d80eb35dcf97ad --broadcast --verify --via-ir
